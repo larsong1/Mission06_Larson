@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Mission06_Larson.Models;
 using System.Diagnostics;
 
@@ -48,6 +49,15 @@ namespace Mission06_Larson.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Movielist()
+        {
+            var movies = _movieContext.Movies
+                .Where(x => x.Category != "")
+                .ToList();
+
+            return View();
         }
     }
 }
