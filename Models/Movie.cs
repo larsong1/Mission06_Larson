@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mission06_Larson.Models
 {
@@ -8,7 +9,9 @@ namespace Mission06_Larson.Models
         [Required]
         public int MovieID { get; set; }
         [Required]
-        public string Category { get; set; }
+        [ForeignKey("CategoryID")]
+        public int CategoryID { get; set; }
+        public Category Category { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]

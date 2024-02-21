@@ -26,9 +26,11 @@ namespace Mission06_Larson.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult MovieForm()
         {
-            return View();
+           ViewBag.Categories = _movieContext.Categories.ToList(); // accessible to all controllers
+           return View();
         }
 
         [HttpPost]
@@ -51,13 +53,30 @@ namespace Mission06_Larson.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Movielist()
+        public IActionResult MovieList()
         {
             var movies = _movieContext.Movies
-                .Where(x => x.Category != "")
+                .Where(x => x.Title != "")
                 .ToList();
 
-            return View();
+            return View(movies);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var recordToEdit = _movieContext.Movies
+                .Single(x => x.MovieID == id);
+            ViewBag.Categories = _movieContext.Categories.ToList();
+            return View("MovieForm", recordToEdit);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Movie movie)
+        {
+            _movieContext.Update(movie);
+            _movieContext.SaveChanges();
+            return RedirectToAction("MovieList");
         }
     }
 }

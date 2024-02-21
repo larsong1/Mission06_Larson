@@ -9,8 +9,15 @@
 
 <h1>Please enter your movie submission!</h1>
 <form method="POST">
+    <input type="hidden" asp-for="MovieID"><br>
+
     <label asp-for="Category">Category:</label><br>
-    <input asp-for="Category"><br>
+    <select asp-for="Category">
+        @foreach (Category c in ViewBag.Categories)
+        {
+            <option value="@c.CategoryID">@c.CategoryName</option>
+        }
+    </select><br>
 
     <label asp-for="Title">Title:</label><br>
     <input asp-for="Title"><br>
