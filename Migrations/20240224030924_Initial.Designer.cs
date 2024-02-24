@@ -11,7 +11,7 @@ using Mission06_Larson.Models;
 namespace Mission06_Larson.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20240224024628_Initial")]
+    [Migration("20240224030924_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

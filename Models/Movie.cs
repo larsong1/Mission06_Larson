@@ -11,7 +11,7 @@ namespace Mission06_Larson.Models
         [ForeignKey("CategoryId")]
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
-        [Required(ErrorMessage = "Movie Title is Required")]
+        [Required(ErrorMessage = "Movie Title is Required")] // add custom message when field is not entered
         public string Title { get; set; }
         [Required(ErrorMessage = "Movie Year is Required")]
         [Range(1888,2030)]

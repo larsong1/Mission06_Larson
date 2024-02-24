@@ -6,9 +6,9 @@
 
 @model List<Movie>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-striped">
     <thhead class="fontweight: bold">
-        <tr>
+        <tr class="table-primary">
             <td>Category</td>
             <td>Title</td>
             <td>Year</td>
@@ -25,7 +25,7 @@
     <tbody>
         @foreach (var i in Model) {
             <tr>
-                <td>@i.Category</td>
+                <td>@i.Category.CategoryName</td>
                 <td>@i.Title</td>
                 <td>@i.Year</td>
                 <td>@i.Director</td>

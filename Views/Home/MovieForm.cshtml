@@ -15,7 +15,7 @@
     <select asp-for="CategoryId">
         @foreach (Category c in ViewBag.Categories)
         {
-            <option value="@c.CategoryId">@c.CategoryName</option>
+            <option value="@c.CategoryId">@c.CategoryName</option> @*populates field with categories from ViewBag*@
         }
     </select><br>
 
@@ -56,5 +56,5 @@
 
     <button type="submit">Submit Movie</button>
 
-    <div asp-validation-summary="All"></div>
+    <div asp-validation-summary="All"></div> @*Shows error messages if model constraints are not met*@
 </form>

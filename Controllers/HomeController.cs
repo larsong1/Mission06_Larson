@@ -34,19 +34,19 @@ namespace Mission06_Larson.Controllers
         }
 
         [HttpPost]
-        public IActionResult MovieForm(Movie response)
+        public IActionResult MovieForm(Movie response) 
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) // Checks if form data matches model requirements
             {
-                _movieContext.Movies.Add(response);
-                _movieContext.SaveChanges();
+                _movieContext.Movies.Add(response); 
+                _movieContext.SaveChanges(); // Submits Movie into database
 
                 return View("SubmitMessage", response);
             }
             else
             {
                 ViewBag.Categories = _movieContext.Categories.ToList();
-                return View(response);
+                return View(response); // returns user to form with error messages
             }
         }
 
@@ -63,15 +63,13 @@ namespace Mission06_Larson.Controllers
 
         public IActionResult MovieList()
         {
-            var movies = _movieContext.Movies
-                .Where(x => x.Title != "")
-                .ToList();
+            var movies = _movieContext.Movies.Include(x => x.Category).ToList(); // Displays all movies (including categories!)
 
             return View(movies);
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int id) // displays form page with data from record that has been requested to edit
         {
             var recordToEdit = _movieContext.Movies
                 .Single(x => x.MovieId == id);
@@ -80,7 +78,7 @@ namespace Mission06_Larson.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Movie movie)
+        public IActionResult Edit(Movie movie) // uses changed data to update record in DB
         {
             _movieContext.Update(movie);
             _movieContext.SaveChanges();
@@ -88,7 +86,7 @@ namespace Mission06_Larson.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int id) // displays confirmation page before deleting
         {
             var movieToDelete = _movieContext.Movies
                 .Single(x => x.MovieId == id);
@@ -96,7 +94,7 @@ namespace Mission06_Larson.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(Movie movie)
+        public IActionResult Delete(Movie movie) // deletes movie from db
         {
             _movieContext.Movies.Remove(movie);
             _movieContext.SaveChanges();
