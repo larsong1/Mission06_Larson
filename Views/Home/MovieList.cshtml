@@ -14,6 +14,10 @@
             <td>Year</td>
             <td>Director</td>
             <td>Rating</td>
+            <td>Edited</td>
+            <td>Lent To</td>
+            <td>Copied To Plex</td>
+            <td>Notes</td>
             <td></td>
             <td></td>
         </tr>
@@ -26,8 +30,12 @@
                 <td>@i.Year</td>
                 <td>@i.Director</td>
                 <td>@i.Rating</td>
-                <td><a class="btn btn-secondary" asp-controller="Home" asp-action="Edit" asp-route-id="@i.MovieID">Edit</a></td>
-                <td><a class="btn btn-danger">Delete</a></td>
+                <td>@i.Edited</td>
+                <td>@i.LentTo</td>
+                <td>@i.CopiedToPlex</td>
+                <td>@i.Notes</td>
+                <td><a class="btn btn-secondary" asp-controller="Home" asp-action="Edit" asp-route-id="@i.MovieId">Edit</a></td>
+                <td><a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@i.MovieId">Delete</a></td>
             </tr>
         }
     </tbody>

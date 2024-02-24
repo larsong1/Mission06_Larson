@@ -30,16 +30,24 @@ namespace Mission06_Larson.Controllers
         public IActionResult MovieForm()
         {
            ViewBag.Categories = _movieContext.Categories.ToList(); // accessible to all controllers
-           return View();
+           return View(new Movie());
         }
 
         [HttpPost]
         public IActionResult MovieForm(Movie response)
         {
-            _movieContext.Movies.Add(response);
-            _movieContext.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                _movieContext.Movies.Add(response);
+                _movieContext.SaveChanges();
 
-            return View("SubmitMessage", response);
+                return View("SubmitMessage", response);
+            }
+            else
+            {
+                ViewBag.Categories = _movieContext.Categories.ToList();
+                return View(response);
+            }
         }
 
         public IActionResult Privacy()
@@ -66,7 +74,7 @@ namespace Mission06_Larson.Controllers
         public IActionResult Edit(int id)
         {
             var recordToEdit = _movieContext.Movies
-                .Single(x => x.MovieID == id);
+                .Single(x => x.MovieId == id);
             ViewBag.Categories = _movieContext.Categories.ToList();
             return View("MovieForm", recordToEdit);
         }
@@ -75,6 +83,22 @@ namespace Mission06_Larson.Controllers
         public IActionResult Edit(Movie movie)
         {
             _movieContext.Update(movie);
+            _movieContext.SaveChanges();
+            return RedirectToAction("MovieList");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var movieToDelete = _movieContext.Movies
+                .Single(x => x.MovieId == id);
+            return View(movieToDelete);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Movie movie)
+        {
+            _movieContext.Movies.Remove(movie);
             _movieContext.SaveChanges();
             return RedirectToAction("MovieList");
         }
